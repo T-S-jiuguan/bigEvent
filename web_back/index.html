@@ -114,13 +114,13 @@
 
     <script>
 
-        $(function(){
-            $('.icon-tuichu').parent().on('click',function(){
+        $(function () {
+            $('.icon-tuichu').parent().on('click', function () {
 
                 // 发送推出接口请求
                 $.post({
-                    url:'http://localhost:8000/admin/logout',
-                    success: function(res){
+                    url: 'http://localhost:8000/admin/logout',
+                    success: function (res) {
                         // console.log(res);
 
                         if (res.code == 200) {
@@ -128,6 +128,19 @@
                         }
                     }
                 })
+            });
+
+
+            $.get({
+                url: 'http://localhost:8000/admin/getuser',
+                success: function (backData) {
+
+                    if (backData.code == 200) {
+                        $('.user_info img').attr('src', backData.data.user_pic);
+                        $('.user_info span').html('欢迎&nbsp;&nbsp;' + backData.data.nickname);
+                        $('.user_center_link img').attr('src',backData.data.user_pic)
+                    }
+                }
             })
         })
     </script>

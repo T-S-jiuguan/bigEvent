@@ -106,9 +106,15 @@
 
         })
 
-        $(window).keydown(function () {
-            $('.close span').trigger('click')
+        $(window).keydown(function (e) {
+            $('.close span').trigger('click');
+
+        //    console.log( e.keyCode);
+        if (e.keyCode == 13) {
+            $('.input_sub').trigger('click')
+        }
         })
+        
 
     </script>
 </body>
