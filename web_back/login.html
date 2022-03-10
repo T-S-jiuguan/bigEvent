@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -31,8 +32,31 @@
 
     </div>
 
+    <!-- 弹出框 -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">温馨提示!</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 导入jq -->
     <script src="./js/jquery-1.12.4.min.js"></script>
+    <!-- 导入bootstrap -->
+    <script src="./js/bootstrap/js/bootstrap.min.js"></script>
 
     <script>
         $('.input_sub').click(function (e) {
@@ -47,7 +71,11 @@
             // 判断输入是否为空
             if (userName == '' && password == '') {
 
-                alert('账户或者密码为空')
+                // alert('账户或者密码为空');
+                $('.modal-body').text('账号或密码为空!');
+                $('#myModal').modal({
+                    keyboard: true,
+                })
             } else {
 
                 // 发送登录请求
@@ -61,17 +89,27 @@
                     success: function (userdata) {
 
                         // 判断输入账户密码是否正确
-                        if(userdata.code == 200) {
+                        if (userdata.code == 200) {
                             window.location.href = './index.html';
                         } else {
 
-                            alert('输入的账户或密码错误!');
-                        }   
+                            // alert('输入的账户或密码错误!');
+                            $('.modal-body').text('账号或密码错误!');
+                            $('#myModal').modal({
+                                keyboard: true,
+                            })
+                        }
                     }
                 })
             }
 
+
         })
+
+        $(window).keydown(function () {
+            $('.close span').trigger('click')
+        })
+
     </script>
 </body>
 
