@@ -55,7 +55,7 @@
     </div>
 
     <div class="main" id="main_body">
-        <iframe src="main_count.html" frameborder="0" id="main_frame" name="main_frame" frameborder="0"
+        <iframe src="./main_count.html" frameborder="0" id="main_frame" name="main_frame" frameborder="0"
             scrolling="auto"></iframe>
     </div>
 
@@ -138,7 +138,7 @@
                     if (backData.code == 200) {
                         $('.user_info img').attr('src', backData.data.user_pic);
                         $('.user_info span').html('欢迎&nbsp;&nbsp;' + backData.data.nickname);
-                        $('.user_center_link img').attr('src',backData.data.user_pic)
+                        $('.user_center_link img').attr('src',backData.data.user_pic);
                     }
                 }
             })
