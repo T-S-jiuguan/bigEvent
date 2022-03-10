@@ -29,8 +29,50 @@
             </form>
         </div>
 
-    </div> 
+    </div>
 
+    <!-- 导入jq -->
+    <script src="./js/jquery-1.12.4.min.js"></script>
+
+    <script>
+        $('.input_sub').click(function (e) {
+
+            // 阻止事件默认行为
+            e.preventDefault();
+
+            // 获取用户输入的账户密码
+            var userName = $('.input_txt').val().trim();
+            var password = $('.input_pass').val().trim();
+
+            // 判断输入是否为空
+            if (userName == '' && password == '') {
+
+                alert('账户或者密码为空')
+            } else {
+
+                // 发送登录请求
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:8000/admin/login',
+                    data: {
+                        user_name: userName,
+                        password: password
+                    },
+                    success: function (userdata) {
+
+                        // 判断输入账户密码是否正确
+                        if(userdata.code == 200) {
+                            window.location.href = './index.html';
+                        } else {
+
+                            alert('输入的账户或密码错误!');
+                        }   
+                    }
+                })
+            }
+
+        })
+    </script>
 </body>
 
 </html>
