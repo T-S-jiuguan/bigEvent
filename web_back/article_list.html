@@ -301,8 +301,8 @@
             <td class="text-center">{{v.date}}</td>
             <td class="text-center">{{v.state}}</td>
             <td class="text-center">
-                <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
-                <a href="javascript:deleteTr( 1005 );" class="btn btn-danger btn-xs">删除</a>
+                <a href="article_edit.html?id={{v.id}}" att-id="{{v.id}}" class="btn btn-default btn-xs">编辑</a>
+                <a href="#" att-id="{{v.id}}" class="btn btn-danger btn-xs btn-delete">删除</a>
             </td>
         </tr>
         
@@ -400,10 +400,12 @@
 
                             // 动态分页功能
                             var totalPages = backData.totalPage;
+
+                            var currentPage = $pagination.twbsPagination('getCurrentPage');//获取当前页
                             
                             if (totalPages != myPage) {
                                 myPage = totalPages;
-                                // var currentPage = $pagination.twbsPagination('getCurrentPage');//获取当前页
+                                
                                 $pagination.twbsPagination('destroy');//重绘页码函数
                                 $pagination.twbsPagination($.extend({}, defaultOpts, {
                                     startPage: 1,//开始页
@@ -420,9 +422,32 @@
             // 给筛选按钮添加点击事件
             $('#btnSearch').on('click', function (e) {
                 e.preventDefault();
-                getData();
+
+                $('.page-link').trigger('click')
+                getData(1);
+
             })
 
+
+            // 给删除按钮添加点击事件
+            $('tbody').on('click','.btn-delete',function(e){
+
+                e.preventDefault();
+
+                var id = $(this).attr('att-id');
+                
+                $.get({
+                    url:'http://localhost:8000/admin/article_delete',
+                    data: {id:id},
+                    success: function(backData){
+
+                        if(backData.code == 200) {
+
+                            getData();
+                        }
+                    }
+                })
+            })
 
 
 
